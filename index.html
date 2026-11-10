@@ -120,11 +120,10 @@ footer a { color: var(--gold-light); }
 
     <div class="col">
       <label for="questions">Questions from the chat</label>
-      <p class="hint" id="qhint">Paste or type one per line, up to 12. Names and times from a pasted chat are trimmed off. The six below are examples, so replace them with your audience's questions.</p>
-      <textarea id="questions" spellcheck="true" aria-describedby="qhint"></textarea>
+      <p class="hint" id="qhint">Paste or type one per line, up to 12. Names and times from a pasted chat are trimmed off.</p>
+      <textarea id="questions" spellcheck="true" aria-describedby="qhint" placeholder="Type or paste one question per line"></textarea>
       <div class="row">
         <span class="hint" id="count"></span>
-        <button class="ghost" id="examples" type="button">Bring back the examples</button>
       </div>
 
       <h2>Today's teaching order</h2>
@@ -148,14 +147,6 @@ footer a { color: var(--gold-light); }
 
 <script>
 (function () {
-  var EXAMPLES = [
-    "I'm not techy. Can I really learn AI?",
-    "Which AI tool should I start with?",
-    "Is the free version enough?",
-    "How do I make AI sound like me?",
-    "Is my information safe in AI?",
-    "How long before AI saves me time?"
-  ];
   // Jewel-tone slice palette carried over from the previous wheel — navy and gold plus teal,
   // burgundy, steel blue, burnt orange, violet, brick, and olive, so every slice reads in color.
   var SLICES = [
@@ -298,12 +289,11 @@ footer a { color: var(--gold-light); }
     try { navigator.clipboard.writeText(text).then(function () { statusEl.textContent = "Order copied."; }, fail); } catch (e) { fail(); }
   }
 
-  qBox.value = EXAMPLES.join("\n");
+  qBox.value = "";
   qBox.addEventListener("input", function () { render(); });
   spinBtn.addEventListener("click", spin);
   $("copy").addEventListener("click", copyOrder);
   $("restart").addEventListener("click", function () { if (spinning) return; picked = []; statusEl.textContent = "All questions are back on the wheel."; render(); });
-  $("examples").addEventListener("click", function () { if (spinning) return; qBox.value = EXAMPLES.join("\n"); picked = []; render(); });
   render();
   if (document.fonts && document.fonts.ready) document.fonts.ready.then(draw);
 })();
